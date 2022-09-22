@@ -1,0 +1,15 @@
+https://github.com/cmusphinx/sphinxbase/issues/77
+
+---
+ test/unit/test_logmath/Makefile.am |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/test/unit/test_logmath/Makefile.am
++++ b/test/unit/test_logmath/Makefile.am
+@@ -1,5 +1,5 @@
+ check_PROGRAMS = test_log_int16 test_log_int8 test_log_shifted
+-TESTS = test_log_int16 test_log_int8 test_log_shifted
++TESTS = test_log_int16 test_log_int8
+ 
+ AM_CFLAGS =\
+ 	-I$(top_srcdir)/include/sphinxbase \

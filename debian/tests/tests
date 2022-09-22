@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+WORKDIR=$AUTOPKGTEST_TMP
+SRCDIR=$PWD
+
+patch -p1 < debian/tests-patches/use_system_sphinxbase 2>&1 || true
+dh_autoreconf 2>&1
+
+PY3VERS="$(py3versions -r 2> /dev/null)"
+
+for pyver in $PY3VERS; do
+  PYTHON=/usr/bin/$pyver dh_auto_configure -B build-$pyver 2>&1
+  dh_auto_build -B build-$pyver/test 2>&1
+
+  dh_auto_test -B build-$pyver/test 2>&1
+done
+
+cd $SRCDIR
+patch -p1 -R < debian/tests-patches/use_system_sphinxbase

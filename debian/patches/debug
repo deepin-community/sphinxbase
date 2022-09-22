@@ -1,0 +1,57 @@
+---
+ test/regression/test-sphinx_fe-ctl.sh |   20 ++++++++++++++++++++
+ test/regression/testfuncs.sh.in       |   12 ++++++++++++
+ 2 files changed, 32 insertions(+)
+
+--- a/test/regression/test-sphinx_fe-ctl.sh
++++ b/test/regression/test-sphinx_fe-ctl.sh
+@@ -57,8 +57,28 @@ run_program sphinx_cepview/sphinx_cepvie
+ -f chan3.wav.mfc \
+ > test-sphinx_fe.cepview 2>>$tmpout
+ 
++[ -x /usr/bin/strace ] &&
++strace_program sphinx_cepview/sphinx_cepview \
++-i 13 \
++-d 13 \
++-f chan3.wav.mfc \
++> test-sphinx_fe.strace.cepview 2>>$tmpout
++
++[ -x /usr/bin/ltrace ] &&
++ltrace_program sphinx_cepview/sphinx_cepview \
++-i 13 \
++-d 13 \
++-f chan3.wav.mfc \
++> test-sphinx_fe.ltrace.cepview 2>>$tmpout
++
+ compare_table "WAVE2FEAT test" test-sphinx_fe.cepview $tests/regression/chan3.cepview 0.1
++[ -r test-sphinx_fe.strace.cepview ] &&
++compare_table "WAVE2FEAT test" test-sphinx_fe.strace.cepview $tests/regression/chan3.cepview 0.1
++[ -r test-sphinx_fe.ltrace.cepview ] &&
++compare_table "WAVE2FEAT test" test-sphinx_fe.ltrace.cepview $tests/regression/chan3.cepview 0.1
+ 
+ if test x"$failures" != x; then
++  cat strace 1>&2
++  cat ltrace 1>&2
+   cat $tmpout 1>&2
+ fi
+--- a/test/regression/testfuncs.sh.in
++++ b/test/regression/testfuncs.sh.in
+@@ -28,6 +28,18 @@ memcheck_program() {
+     $builddir/libtool --mode=execute valgrind --leak-check=full "$builddir/src/$program" $@
+ }
+ 
++strace_program() {
++    program="$1"
++    shift
++    $builddir/libtool --mode=execute strace -o strace "$builddir/src/$program" $@
++}
++
++ltrace_program() {
++    program="$1"
++    shift
++    $builddir/libtool --mode=execute ltrace -o ltrace "$builddir/src/$program" $@
++}
++
+ pass() {
+     title="$1"
+     echo "$title PASSED"

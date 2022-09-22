@@ -1,0 +1,324 @@
+---
+ test/regression/testfuncs.sh.in     |    8 ++++----
+ test/unit/test_alloc/Makefile.am    |    6 ++----
+ test/unit/test_bitvec/Makefile.am   |    6 ++----
+ test/unit/test_case/Makefile.am     |    8 +++-----
+ test/unit/test_cmdln/Makefile.am    |    7 ++-----
+ test/unit/test_fe/Makefile.am       |    6 ++----
+ test/unit/test_feat/Makefile.am     |    6 ++----
+ test/unit/test_fsg/Makefile.am      |    6 ++----
+ test/unit/test_hash/Makefile.am     |    9 +++------
+ test/unit/test_lineiter/Makefile.am |    6 ++----
+ test/unit/test_logmath/Makefile.am  |    7 ++-----
+ test/unit/test_matrix/Makefile.am   |    7 ++-----
+ test/unit/test_ngram/Makefile.am    |    6 ++----
+ test/unit/test_string/Makefile.am   |    6 ++----
+ test/unit/test_thread/Makefile.am   |    6 ++----
+ test/unit/test_util/Makefile.am     |    6 ++----
+ test/unit/testfuncs.sh.in           |    4 ++--
+ 17 files changed, 38 insertions(+), 72 deletions(-)
+
+--- a/test/unit/test_alloc/Makefile.am
++++ b/test/unit/test_alloc/Makefile.am
+@@ -4,12 +4,10 @@ check_PROGRAMS = test_ckd_alloc test_ckd
+ TESTS = test_ckd_alloc test_ckd_alloc_catch test_ckd_alloc_fail.sh test_ckd_alloc_abort.sh \
+ 	test_listelem_alloc
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\"
+ 
+ noinst_HEADERS = test_macros.h
+ EXTRA_DIST = test_ckd_alloc_fail.sh test_ckd_alloc_abort.sh
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+--- a/test/unit/test_bitvec/Makefile.am
++++ b/test/unit/test_bitvec/Makefile.am
+@@ -2,11 +2,9 @@ check_PROGRAMS = test_bitvec
+ 
+ TESTS = test_bitvec
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\"
+ 
+ noinst_HEADERS = test_macros.h
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+--- a/test/unit/test_case/Makefile.am
++++ b/test/unit/test_case/Makefile.am
+@@ -1,12 +1,10 @@
+ check_PROGRAMS = chgCase
+ 
+ 
+-AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la -lm
++AM_CFLAGS = $(shell pkg-config --cflags sphinxbase)
++
++LDADD = -lsphinxbase -lm
+ 
+ TESTS = _lcase1.test				\
+ 	_lcase2.test				\
+--- a/test/unit/test_cmdln/Makefile.am
++++ b/test/unit/test_cmdln/Makefile.am
+@@ -1,11 +1,8 @@
+ check_PROGRAMS = cmdln_parse cmdln_parse_multiple cmdln_parse_r
+ 
+-AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include
++AM_CFLAGS = $(shell pkg-config --cflags sphinxbase)
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la -lm
++LDADD = -lsphinxbase -lm
+ 
+ CLEANFILES = _test*.err _test*.out
+ 
+--- a/test/unit/test_fe/Makefile.am
++++ b/test/unit/test_fe/Makefile.am
+@@ -2,11 +2,9 @@ check_PROGRAMS = test_fe test_pitch
+ 
+ TESTS = test_fe test_pitch
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\"
+ 
+ noinst_HEADERS = test_macros.h
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+--- a/test/unit/test_feat/Makefile.am
++++ b/test/unit/test_feat/Makefile.am
+@@ -2,13 +2,11 @@ check_PROGRAMS = test_feat test_feat_liv
+ noinst_HEADERS = test_macros.h
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\"
+ 
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ TESTS = _test_feat.test test_feat_live test_feat_fe test_subvq
+ EXTRA_DIST = _test_feat.res _test_feat.test
+--- a/test/unit/test_fsg/Makefile.am
++++ b/test/unit/test_fsg/Makefile.am
+@@ -6,12 +6,10 @@ check_PROGRAMS = \
+ TESTS = $(check_PROGRAMS)
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DLMDIR=\"${srcdir}\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/unit/test_hash/Makefile.am
++++ b/test/unit/test_hash/Makefile.am
+@@ -2,12 +2,9 @@ check_PROGRAMS = displayhash deletehash
+ 
+ noinst_HEADERS = test_macros.h
+ 
+-AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include
++AM_CFLAGS = $(shell pkg-config --cflags sphinxbase)
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ TESTS = test_hash_iter				\
+ 	_hash_delete1.test			\
+@@ -28,4 +25,4 @@ EXTRA_DIST = display.res			\
+ 	_hash_delete5.res			\
+ 	_hash_delete5.test
+ 
+-CLEANFILES = *.out
+\ No newline at end of file
++CLEANFILES = *.out
+--- a/test/unit/test_lineiter/Makefile.am
++++ b/test/unit/test_lineiter/Makefile.am
+@@ -2,12 +2,10 @@ check_PROGRAMS = test_lineiter
+ TESTS = test_lineiter
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DFILEDIR=\"$(srcdir)\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la -lm
++LDADD = -lsphinxbase -lm
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/unit/test_logmath/Makefile.am
++++ b/test/unit/test_logmath/Makefile.am
+@@ -1,12 +1,9 @@
+ check_PROGRAMS = test_log_int16 test_log_int8 test_log_shifted
+ TESTS = test_log_int16 test_log_int8 test_log_shifted
+ 
+-AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include
++AM_CFLAGS = $(shell pkg-config --cflags sphinxbase)
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la -lm
++LDADD = -lsphinxbase -lm
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/unit/test_matrix/Makefile.am
++++ b/test/unit/test_matrix/Makefile.am
+@@ -5,12 +5,9 @@ test_solve_SRCS = test_solve.c
+ test_invert_SRCS = test_invert.c
+ test_determinant_SRCS = test_determinant.c
+ 
+-AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include
++AM_CFLAGS = $(shell pkg-config --cflags sphinxbase)
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la -lm
++LDADD = -lsphinxbase -lm
+ 
+ 
+ TESTS = _test_determinant.test			\
+--- a/test/unit/test_ngram/Makefile.am
++++ b/test/unit/test_ngram/Makefile.am
+@@ -10,12 +10,10 @@ check_PROGRAMS = \
+ TESTS = $(check_PROGRAMS)
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DLMDIR=\"${srcdir}\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/unit/test_string/Makefile.am
++++ b/test/unit/test_string/Makefile.am
+@@ -1,12 +1,10 @@
+ check_PROGRAMS = strtest test_atof
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(srcdir)\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ TESTS = _fread_line.test			\
+ 	_nextword.test				\
+--- a/test/unit/test_thread/Makefile.am
++++ b/test/unit/test_thread/Makefile.am
+@@ -6,12 +6,10 @@ check_PROGRAMS = \
+ TESTS = $(check_PROGRAMS)
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/unit/test_util/Makefile.am
++++ b/test/unit/test_util/Makefile.am
+@@ -10,13 +10,11 @@ check_PROGRAMS = \
+ TESTS = $(check_PROGRAMS)
+ 
+ AM_CFLAGS =\
+-	-I$(top_srcdir)/include/sphinxbase \
+-	-I$(top_srcdir)/include \
+-	-I$(top_builddir)/include \
++	$(shell pkg-config --cflags sphinxbase) \
+ 	-DTESTDATADIR=\"$(top_srcdir)/test/regression\" \
+ 	-DLMDIR=\"${top_srcdir}/test/unit/test_ngram\"
+ 
+-LDADD = ${top_builddir}/src/libsphinxbase/libsphinxbase.la
++LDADD = -lsphinxbase
+ 
+ noinst_HEADERS = test_macros.h
+ 
+--- a/test/regression/testfuncs.sh.in
++++ b/test/regression/testfuncs.sh.in
+@@ -11,21 +11,21 @@ failures=""
+ trap "report_failures" 0
+ 
+ run_program() {
+-    program="$1"
++    program="${1/*\/}"
+     shift
+-    $builddir/libtool --mode=execute "$builddir/src/$program" $@
++    "/usr/bin/$program" $@
+ }
+ 
+ debug_program() {
+     program="$1"
+     shift
+-    $builddir/libtool --mode=execute gdb --args "$builddir/src/$program" $@
++    gdb --args "/usr/bin/$program" $@
+ }
+ 
+ memcheck_program() {
+     program="$1"
+     shift
+-    $builddir/libtool --mode=execute valgrind --leak-check=full "$builddir/src/$program" $@
++    valgrind --leak-check=full "/usr/bin/$program" $@
+ }
+ 
+ pass() {
+--- a/test/unit/testfuncs.sh.in
++++ b/test/unit/testfuncs.sh.in
+@@ -11,9 +11,9 @@ failures=""
+ trap "report_failures" 0
+ 
+ run_program() {
+-    program="$1"
++    program="${1/*\/}"
+     shift
+-    $builddir/libtool --mode=execute "$builddir/src/$program/$program" $@
++    "/usr/bin/$program" $@
+ }
+ 
+ pass() {
