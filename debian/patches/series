@@ -6,3 +6,4 @@ log_shifted_ignore
 debug
 python3.10
 utf-8
+swig4.2

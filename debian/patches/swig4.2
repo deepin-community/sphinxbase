@@ -1,0 +1,32 @@
+---
+ swig/typemaps.i |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/swig/typemaps.i
++++ b/swig/typemaps.i
+@@ -55,7 +55,13 @@
+     $2 = (char **) calloc(($1 + 1), sizeof(char *));
+     for (i = 0; i < $1; i++) {
+       PyObject *o = PyList_GetItem($input,i);
++      PyObject *bytes;
++#if SWIG_VERSION >= 0x040200
++      $2[i] = strdup(SWIG_PyUnicode_AsUTF8AndSize(o, NULL, &bytes));
++      Py_XDECREF(bytes);
++#else
+       $2[i] = SWIG_Python_str_AsChar(o);
++#endif
+     }
+   } else {
+     PyErr_SetString(PyExc_TypeError, "list type expected");
+@@ -67,7 +73,11 @@
+   int i;
+   if ($2 != NULL) {
+     for (i = 0; $2[i] != NULL; i++) {
++#if SWIG_VERSION >= 0x040200
++        free($2[i]);
++#else
+         SWIG_Python_str_DelForPy3($2[i]);
++#endif
+     }
+     free($2);
+   }
