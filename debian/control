@@ -42,7 +42,7 @@ Package: sphinxbase-utils
 Architecture: any
 Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Speech recognition tool - utililities
+Description: Speech recognition tool - utilities
  CMU Sphinx is a large vocabulary, speaker-independent continuous speech
  recognition engine.
  .
