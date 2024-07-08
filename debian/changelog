@@ -1,3 +1,9 @@
+sphinxbase (0.8+5prealpha+1-13deepin1) unstable; urgency=medium
+
+  * No source change upload against python 3.12.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Mon, 08 Jul 2024 09:58:04 +0200
+
 sphinxbase (0.8+5prealpha+1-13) unstable; urgency=medium
 
   [ Helmut Grohne ]
