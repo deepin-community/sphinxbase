@@ -3,6 +3,7 @@ Priority: optional
 Maintainer: Debian Accessibility Team <pkg-a11y-devel@alioth-lists.debian.net>
 Uploaders: Samuel Thibault <sthibault@debian.org>
 Build-Depends: debhelper-compat (= 12), bison, pkgconf,
+ architecture-is-little-endian,
  libpulse-dev, libblas-dev, liblapack-dev,
  doxygen, python3-all-dev:any, libpython3-all-dev, dh-sequence-python3, python3-setuptools,
  swig, libjs-jquery,
