@@ -30,16 +30,10 @@ override_dh_auto_build:
 	  dh_auto_build -B build-$$pyver ; \
 	done
 
-ifeq (big,$(shell dpkg-architecture -qDEB_BUILD_ARCH_ENDIAN))
-override_dh_auto_test:
-	echo "Big-endian archs do not work yet and create hundreds of gigabytes of log, don't even try for now."
-	false
-else
 override_dh_auto_test:
 	set -e ; for pyver in $(PY3VERS); do \
 	  dh_auto_test -B build-$$pyver ; \
 	done
-endif
 
 override_dh_auto_install:
 	set -e ; for pyver in $(PY3VERS); do \
