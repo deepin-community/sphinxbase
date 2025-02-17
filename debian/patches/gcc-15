@@ -1,0 +1,49 @@
+From 7397d13fcc56b0a304611a4d2c598eaf1177df2d Mon Sep 17 00:00:00 2001
+From: "W. Michael Petullo" <mike@flyn.org>
+Date: Fri, 11 Feb 2022 13:32:41 -0600
+Subject: [PATCH] Make use of stdbool.h when generating Python interface
+
+It seems building sphinxbase does not work with Python's 3.11
+series. Trying to compile fails with this error:
+
+In file included from /usr/include/python3.11/cpython/pystate.h:5,
+                 from /usr/include/python3.11/pystate.h:135,
+                 from /usr/include/python3.11/Python.h:76,
+                 from sphinxbase_wrap.c:11:
+sphinxbase_wrap.c:16:13: error: two or more data types in declaration specifiers
+   16 | typedef int bool;
+      |             ^~~~
+sphinxbase_wrap.c:16:1: warning: useless type name in empty declaration
+   16 | typedef int bool;
+      | ^~~~~~~
+
+My guess is that one of the Python header files started including
+stdbool.h, and thus the type bool conflicts with the name bool in:
+
+typedef int bool;
+
+The offending code is generated using swig.
+
+This commit removes the definition of bool and instead includes
+stdbool.h to make use of the system definition.
+
+Signed-off-by: W. Michael Petullo <mike@flyn.org>
+---
+ swig/sphinxbase.i | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/swig/sphinxbase.i b/swig/sphinxbase.i
+index 760f2331..00acb729 100644
+--- a/swig/sphinxbase.i
++++ b/swig/sphinxbase.i
+@@ -79,9 +79,7 @@ negative error code."
+ %begin %{
+ 
+ #ifndef __cplusplus
+-typedef int bool;
+-#define true 1
+-#define false 0
++#include <stdbool.h>
+ #endif
+ 
+ #include <sphinxbase/cmd_ln.h>

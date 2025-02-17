@@ -6,3 +6,4 @@ python3.10
 utf-8
 swig4.2
 fix-make-j
+gcc-15
