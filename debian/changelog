@@ -1,3 +1,18 @@
+sphinxbase (0.8+5prealpha+1-16deepin1) unstable; urgency=medium
+
+  * Changes from 0.8+5prealpha+1-16 to 0.8+5prealpha+1-21:
+    - control: Replace pkg-config deps with pkgconf
+    - patches/swig4.2: Fix compatibility with swig 4.2
+    - control: Fix typo (Closes: Bug#1069314)
+    - tests/tests: Always unpatch on exit
+    - control: Add python3-setuptools build-dep
+    - control: Build-depend on architecture-is-little-endian
+    - Drop long-standing debugging patches and drop build-deps
+    - Fix parallel builds (Closes: Bug#1087587)
+    - patches/gcc-15: Fix build with gcc-15
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 22 Sep 2026 21:08:54 +0800
+
 sphinxbase (0.8+5prealpha+1-16) unstable; urgency=medium
 
   * control: Drop ltrace dependency on mipsel (Closes: Bug#1031942)
