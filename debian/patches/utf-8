@@ -1,0 +1,20 @@
+https://github.com/cmusphinx/sphinxbase/pull/88
+
+commit 6a9652a73509178807af8cd2ddd6e18752e922f1
+Author: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Date:   Sat Dec 11 12:30:57 2021 +0100
+
+    Use UTF-8 encoding for AUTHORS
+
+diff --git a/AUTHORS b/AUTHORS
+index a81c72c..7cd9cef 100644
+--- a/AUTHORS
++++ b/AUTHORS
+@@ -1,6 +1,6 @@
+ The current maintainers are:
+ 
+-Evandro Gouvêa <egouvea@cs.cmu.edu>
++Evandro GouvÃªa <egouvea@cs.cmu.edu>
+ Arthur Chan <archan@cs.cmu.edu>
+ Mosur Ravishankar <rkm@cs.cmu.edu>
+ Yitao Sun <yitao@cs.cmu.edu>

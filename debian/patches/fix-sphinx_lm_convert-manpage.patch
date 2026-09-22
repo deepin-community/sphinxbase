@@ -1,6 +1,17 @@
-Description: the man page misses a line currently because "'" is special
- Thanks Lintian
-Author: Paul Gevers <elbrus@debian.org>
+commit 36782b9dfcf9b75f12a08133882dd29baf6c269f
+Author: nshmyrev <nshmyrev@94700074-3cef-4d97-a70e-9c8c206c02f5>
+Date:   Tue Nov 28 15:11:33 2017 +0000
+
+    Unescaped quotes in sphinx_lm_convert.1
+    
+    See for details https://sourceforge.net/p/cmusphinx/bugs/477/
+    
+    Thanks to Paul Gevers
+    
+    
+    
+    git-svn-id: svn+ssh://svn.code.sf.net/p/cmusphinx/code/trunk/sphinxbase@13276 94700074-3cef-4d97-a70e-9c8c206c02f5
+
 Index: sphinxbase/doc/sphinx_lm_convert.1
 ===================================================================
 --- sphinxbase.orig/doc/sphinx_lm_convert.1
