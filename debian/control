@@ -4,13 +4,14 @@ Maintainer: Debian Accessibility Team <pkg-a11y-devel@alioth-lists.debian.net>
 Uploaders: Samuel Thibault <sthibault@debian.org>
 Build-Depends: debhelper-compat (= 12), bison, pkg-config,
  libpulse-dev, libblas-dev, liblapack-dev,
- doxygen, python3-all-dev, dh-python, swig, libjs-jquery,
- strace [linux-any], ltrace [amd64 i386 mipsel s390x powerpc ppc64]
+ doxygen, python3-all-dev:any, libpython3-all-dev, dh-sequence-python3,
+ swig, libjs-jquery,
+ strace [linux-any], ltrace [amd64 i386 s390x powerpc ppc64]
 Build-Conflicts: libjack-dev
 Rules-Requires-Root: no
-Standards-Version: 4.5.0
+Standards-Version: 4.6.1
 Section: sound
-Homepage: http://cmusphinx.sourceforge.net/
+Homepage: https://cmusphinx.sourceforge.net/
 Vcs-Git: https://salsa.debian.org/a11y-team/sphinxbase.git
 Vcs-Browser: https://salsa.debian.org/a11y-team/sphinxbase
 
@@ -61,6 +62,7 @@ Description: Speech recognition tool - shared library
 Package: python3-sphinxbase
 Section: python
 Architecture: any
+Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
 Description: Speech recognition tool - Python3 bindings
  CMU Sphinx is a large vocabulary, speaker-independent continuous speech

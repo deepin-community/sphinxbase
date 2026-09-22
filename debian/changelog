@@ -1,8 +1,33 @@
-sphinxbase (0.8+5prealpha+1-13deepin1) unstable; urgency=medium
+sphinxbase (0.8+5prealpha+1-16) unstable; urgency=medium
 
-  * No source change upload against python 3.12.
+  * control: Drop ltrace dependency on mipsel (Closes: Bug#1031942)
 
- -- Tianyu Chen <sweetyfish@deepin.org>  Mon, 08 Jul 2024 09:58:04 +0200
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 25 Feb 2023 19:13:43 +0100
+
+sphinxbase (0.8+5prealpha+1-15) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Fix FTCBFS: export _PYTHON_SYSCONFIGDATA_NAME. (Closes: Bug#1027717)
+
+ -- Samuel Thibault <sthibault@debian.org>  Mon, 02 Jan 2023 13:05:37 +0100
+
+sphinxbase (0.8+5prealpha+1-14) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * patches/utf-8: Use UTF-8 encoding for AUTHORS.
+  * control: Bump Standards-Version to 4.6.0 (no change)
+  * control: Make python3-sphinxbase Multi-Arch: same.
+  * control: Replace python3-all-dev build-dep with python3-all-dev:any,
+    libpython3-all-dev.
+  * control, rules: Replace dh-python and --with python3 with
+    dh-sequence-python3.
+
+  [ Debian Janitor ]
+  * Use secure URI in Homepage field.
+  * Set upstream metadata fields: Repository-Browse.
+  * Update standards version to 4.6.1, no changes needed.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 01 Jan 2023 22:51:23 +0100
 
 sphinxbase (0.8+5prealpha+1-13) unstable; urgency=medium
 
